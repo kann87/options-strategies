@@ -28,7 +28,7 @@ If bundler is not being used to manage dependencies, install the gem by executin
     {"LONG"=>[{"strike_price"=>40000, "index_name"=>"BANKNIFTY", "default_units"=>25, "size"=>1, "execute_units"=>25, "option_type"=>"CEOption"}, {"strike_price"=>40000, "index_name"=>"BANKNIFTY", "default_units"=>25, "size"=>1, "execute_units"=>25, "option_type"=>"PEOption"}], "SHORT"=>[], "index_name"=>"BANKNIFTY", "spot_price"=>40000, "strike_price"=>40000, "klass_name"=>"LongStraddle"}
 
 
-## Implemneted Strategies
+## Implemented Strategies
 
 * LongCall
 * LongPut
