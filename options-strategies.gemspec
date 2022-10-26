@@ -6,13 +6,13 @@ Gem::Specification.new do |spec|
   spec.name = "options-strategies"
   spec.version = Options::Strategies::VERSION
   spec.authors = ["kann87"]
-  spec.email = ["63366780+kann87@users.noreply.github.com"]
+  spec.email = ["kann87@gmail.com"]
 
-  spec.summary = ""
+  spec.summary = "Options Strategy Builder for NSE F&O"
   spec.description = ""
   spec.homepage = "https://github.com/kann87/options-strategies.git"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.6.9"
+  spec.required_ruby_version = ">= 2.3.6"
 
   spec.metadata["allowed_push_host"] = ""
 
