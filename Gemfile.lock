@@ -45,6 +45,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-15
+  x86_64-darwin-17
 
 DEPENDENCIES
   options-strategies!
@@ -52,4 +53,4 @@ DEPENDENCIES
   rubocop (~> 1.21)
 
 BUNDLED WITH
-   2.3.11
+   2.3.24
