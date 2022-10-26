@@ -1,6 +1,6 @@
-# Options Strategies
+# Options Strategies - NSE F&O
 
-This gem helps you to use the pre-defined strategies with the respective inputs and also allows to create the custom strategy as you want.
+This gem helps you to use the Options pre-defined strategies with the respective inputs and also allows to create the custom strategy as you want.
 
 ## Installation
 
