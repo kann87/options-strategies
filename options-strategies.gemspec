@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = ""
   spec.homepage = "https://github.com/kann87/options-strategies.git"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.3.6"
+  spec.required_ruby_version = ">= 2.6.9"
 
   spec.metadata["allowed_push_host"] = ""
 
@@ -31,7 +31,6 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
   spec.add_development_dependency "rspec", "~> 3.11"
-  spec.add_development_dependency "rake", "~> 13.0.6"
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
