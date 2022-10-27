@@ -1,3 +1,8 @@
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/kann87/options-strategies/blob/master/LICENSE.txt)
+[![Gem Version](https://badge.fury.io/rb/options-strategies.svg)](https://badge.fury.io/rb/options-strategies)
+[![Support](https://img.shields.io/badge/options--strategies-gem-green)]
+[![Build Status](https://github.com/kann87/options-strategies/actions/workflows/rspec.yml/badge.svg)](https://github.com/kann87/options-strategies/actions/workflows/rspec.yml)
+
 # Options Strategies - NSE F&O
 
 This gem helps you to use the Options pre-defined strategies with the respective inputs and also allows to create the custom strategy as you want.
