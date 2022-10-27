@@ -1,38 +1,33 @@
-name: Run RSpec tests
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# GitHub recommends pinning actions to a commit SHA.
+# To get a newer version, you will need to update the SHA.
+# You can also reference a tag or branch, but the action may change without warning.
+
+name: Matrix Testing
+
 on:
   push:
-    branches:
-      - "master" # excludes main
-jobs:     
-  test-macos:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
-        ruby: [2.6.9, 2.7, "3.0"]
-
-    runs-on: macos-latest
-
+        os: [ubuntu, macos]
+        ruby: [2.6.9, 2.7, 3.0, head, debug, jruby, jruby-head, truffleruby, truffleruby-head]
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' }}
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-      - name: Run specs
-        run: bundle exec rspec
-    
-  run-rspec-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          # Not needed with a .ruby-version file
-          ruby-version: 2.6.9
-          # runs 'bundle install' and caches installed gems automatically
-          bundler-cache: true
-      - name: Run tests
-        run: |
-          bundle exec rspec
+      - run: bundle install
+      - run: bundle exec rspec
