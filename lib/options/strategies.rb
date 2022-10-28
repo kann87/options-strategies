@@ -312,5 +312,19 @@ module Options
         @strategy_type_klasses = {LongPut => [@strike_price + (2 * @increment)], ShortPut => [@strike_price, @strike_price - (2 * @increment)]}
       end
     end
+
+    class ShortCallLadder < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {ShortCall => [@strike_price - (2 * @increment)], LongCall => [@strike_price, @strike_price + (2 * @increment)]}
+      end
+    end
+
+    class ShortPutLadder < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {ShortPut => [@strike_price + (2 * @increment)], LongPut => [@strike_price, @strike_price - (2 * @increment)]}
+      end
+    end
   end
 end

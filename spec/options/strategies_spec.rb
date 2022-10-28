@@ -160,4 +160,22 @@ RSpec.describe Options::Strategies do
     expect(data["SHORT"][0]["option_type"]).to eq("PEOption")
     expect(data["SHORT"][1]["option_type"]).to eq("PEOption")
   end
+
+  it "check ShortCallLadder result" do
+    data = ShortCallLadder.new(@options).build.to_hash
+    expect(data["LONG"].size).to eq(2)
+    expect(data["LONG"][0]["option_type"]).to eq("CEOption")
+    expect(data["LONG"][1]["option_type"]).to eq("CEOption")
+    expect(data["SHORT"].size).to eq(1)
+    expect(data["SHORT"][0]["option_type"]).to eq("CEOption")
+  end
+
+  it "check ShortPutLadder result" do
+    data = ShortPutLadder.new(@options).build.to_hash
+    expect(data["LONG"].size).to eq(2)
+    expect(data["LONG"][0]["option_type"]).to eq("PEOption")
+    expect(data["LONG"][1]["option_type"]).to eq("PEOption")
+    expect(data["SHORT"].size).to eq(1)
+    expect(data["SHORT"][0]["option_type"]).to eq("PEOption")
+  end
 end
