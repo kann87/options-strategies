@@ -228,56 +228,13 @@ module Options
       end
     end
 
-    class SpreadStrategy < Strategy
-      def build
-        @strategy_type_klasses.each do |strategy_klass, strike_price|
-          @options[:strike_price] = strike_price
-          sk = strategy_klass.new(@options)
-          sk.lot_size = self.input_lot_size
-          # puts "KKKKKK --> #{@options} --> #{strategy_klass} --> #{strike_price} --> #{sk.to_hash}"
-          self.merge_legs(sk.build.legs)
-        end
-        @options[:strike_price] = @strike_price
-        self.legs
-      end
-    end
-
-    class BullCallSpread < SpreadStrategy
-      def initialize(options ={})
-        super(options)
-        @strategy_type_klasses = {LongCall => @strike_price, ShortCall => @strike_price + (5 * @increment)}
-      end
-    end
-
-    class BullPutSpread < SpreadStrategy
-      def initialize(options ={})
-        super(options)
-        @strategy_type_klasses = {ShortPut => @strike_price, LongPut => @strike_price + (5 * @increment)}
-      end
-    end
-
-    class BearPutSpread < SpreadStrategy
-      def initialize(options ={})
-        super(options)
-        @strategy_type_klasses = {LongPut => @strike_price, ShortPut => @strike_price + (5 * @increment)}
-      end
-    end
-
-    class BearCallSpread < SpreadStrategy
-      def initialize(options ={})
-        super(options)
-        @strategy_type_klasses = {ShortCall => @strike_price, LongCall => @strike_price + (5 * @increment)}
-      end
-    end
-
-    class RatioBackSpreadStrategy < Strategy
+    class StrategyBuilder < Strategy
       def build
         @strategy_type_klasses.each do |strategy_klass, strike_prices|
           strike_prices.each do |strike_price|
             @options[:strike_price] = strike_price
             sk = strategy_klass.new(@options)
             sk.lot_size = self.input_lot_size
-            # puts "KKKKKK --> #{@options} --> #{strategy_klass} --> #{strike_price} --> #{sk.to_hash}"
             self.merge_legs(sk.build.legs)
           end
         end
@@ -286,31 +243,87 @@ module Options
       end
     end
 
-    class CallRatioBackSpread < RatioBackSpreadStrategy
+    class BullCallSpread < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {LongCall => [@strike_price], ShortCall => [@strike_price + (5 * @increment)]}
+      end
+    end
+
+    class BullPutSpread < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {ShortPut => [@strike_price], LongPut => [@strike_price + (5 * @increment)]}
+      end
+    end
+
+    class BearPutSpread < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {LongPut => [@strike_price], ShortPut => [@strike_price + (5 * @increment)]}
+      end
+    end
+
+    class BearCallSpread < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {ShortCall => [@strike_price], LongCall => [@strike_price + (5 * @increment)]}
+      end
+    end
+
+    class CallRatioBackSpread < StrategyBuilder
       def initialize(options ={})
         super(options)
         @strategy_type_klasses = {ShortCall => [@strike_price], LongCall => [@strike_price + (5 * @increment), @strike_price + (5 * @increment)]}
       end
     end
 
-    class PutRatioBackSpread < RatioBackSpreadStrategy
+    class PutRatioBackSpread < StrategyBuilder
       def initialize(options ={})
         super(options)
         @strategy_type_klasses = {ShortPut => [@strike_price], LongPut => [@strike_price + (5 * @increment), @strike_price + (5 * @increment)]}
       end
     end
 
-    class PutRatioSpread < RatioBackSpreadStrategy
+    class PutRatioSpread < StrategyBuilder
       def initialize(options ={})
         super(options)
         @strategy_type_klasses = {LongPut => [@strike_price], ShortPut => [@strike_price - (5 * @increment), @strike_price - (5 * @increment)]}
       end
     end
 
-    class CallRatioSpread < RatioBackSpreadStrategy
+    class CallRatioSpread < StrategyBuilder
       def initialize(options ={})
         super(options)
         @strategy_type_klasses = {LongCall => [@strike_price], ShortCall => [@strike_price + (5 * @increment), @strike_price + (5 * @increment)]}
+      end
+    end
+
+    class LongCallLadder < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {LongCall => [@strike_price - (2 * @increment)], ShortCall => [@strike_price, @strike_price + (2 * @increment)]}
+      end
+    end
+
+    class LongPutLadder < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {LongPut => [@strike_price + (2 * @increment)], ShortPut => [@strike_price, @strike_price - (2 * @increment)]}
+      end
+    end
+
+    class ShortCallLadder < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {ShortCall => [@strike_price - (2 * @increment)], LongCall => [@strike_price, @strike_price + (2 * @increment)]}
+      end
+    end
+
+    class ShortPutLadder < StrategyBuilder
+      def initialize(options ={})
+        super(options)
+        @strategy_type_klasses = {ShortPut => [@strike_price + (2 * @increment)], LongPut => [@strike_price, @strike_price - (2 * @increment)]}
       end
     end
   end
