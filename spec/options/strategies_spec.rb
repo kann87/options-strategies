@@ -89,6 +89,11 @@ RSpec.describe Options::Strategies do
     expect(data["LONG"].size).to eq(2)
   end
 
+  it "check LongIronFly result" do
+    data = LongIronFly.new(@options).build.to_hash
+    expect(data["LONG"].size).to eq(2)
+  end
+
   it "check BullCallSpread result" do
     data = BullCallSpread.new(@options).build.to_hash
     expect(data["LONG"].size).to eq(1)
