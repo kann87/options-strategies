@@ -44,6 +44,7 @@ If bundler is not being used to manage dependencies, install the gem by executin
 * IronCondor
 * IronFly
 * LongIronCondor
+* LongIronFly
 * BullCallSpread
 * BullPutSpread
 * BearPutSpread
@@ -52,6 +53,10 @@ If bundler is not being used to manage dependencies, install the gem by executin
 * PutRatioBackSpread
 * PutRatioSpread
 * CallRatioSpread
+* LongCallLadder
+* LongPutLadder
+* ShortCallLadder
+* ShortPutLadder
 
 
 ## Contributing
