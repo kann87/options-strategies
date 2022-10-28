@@ -160,36 +160,24 @@ module Options
       end
     end
 
-    # options = {:index_name=>"NIFTY", :spot_price=>17840, :strike_price=>17850}
-    #example => ShortStrangle.new(options).build.to_hash
-    #example => ShortStrangle.new(options).build.to_json
     class ShortStrangle < Strangle
       def build
         construct {|option_data| self.short = option_data }
       end
     end
 
-    # options = {:index_name=>"NIFTY", :spot_price=>17840, :strike_price=>17850}
-    #example => ShortStraddle.new(options).build.to_hash
-    #example => ShortStraddle.new(options).build.to_json
     class ShortStraddle < Straddle
       def build
         construct {|option_data| self.short = option_data }
       end
     end
 
-    # options = {:index_name=>"NIFTY", :spot_price=>17840, :strike_price=>17850}
-    #example => LongStrangle.new(options).build.to_hash
-    #example => LongStrangle.new(options).build.to_json
     class LongStrangle < Strangle
       def build
         construct {|option_data| self.long = option_data }
       end
     end
 
-    # options = {:index_name=>"NIFTY", :spot_price=>17840, :strike_price=>17850}
-    #example => LongStraddle.new(options).build.to_hash
-    #example => LongStraddle.new(options).build.to_json
     class LongStraddle < Straddle
       def build
         construct {|option_data| self.long = option_data }
