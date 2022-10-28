@@ -128,7 +128,10 @@ RSpec.describe Options::Strategies do
   it "check PutRatioSpread result" do
     data = PutRatioSpread.new(@options).build.to_hash
     expect(data["LONG"].size).to eq(1)
+    expect(data["LONG"][0]["option_type"]).to eq("PEOption")
     expect(data["SHORT"].size).to eq(2)
+    expect(data["SHORT"][0]["option_type"]).to eq("PEOption")
+    expect(data["SHORT"][1]["option_type"]).to eq("PEOption")
   end
 
   it "check CallRatioSpread result" do
@@ -138,5 +141,23 @@ RSpec.describe Options::Strategies do
     expect(data["SHORT"].size).to eq(2)
     expect(data["SHORT"][0]["option_type"]).to eq("CEOption")
     expect(data["SHORT"][1]["option_type"]).to eq("CEOption")
+  end
+
+  it "check LongCallLadder result" do
+    data = LongCallLadder.new(@options).build.to_hash
+    expect(data["LONG"].size).to eq(1)
+    expect(data["LONG"][0]["option_type"]).to eq("CEOption")
+    expect(data["SHORT"].size).to eq(2)
+    expect(data["SHORT"][0]["option_type"]).to eq("CEOption")
+    expect(data["SHORT"][1]["option_type"]).to eq("CEOption")
+  end
+
+  it "check LongPutLadder result" do
+    data = LongPutLadder.new(@options).build.to_hash
+    expect(data["LONG"].size).to eq(1)
+    expect(data["LONG"][0]["option_type"]).to eq("PEOption")
+    expect(data["SHORT"].size).to eq(2)
+    expect(data["SHORT"][0]["option_type"]).to eq("PEOption")
+    expect(data["SHORT"][1]["option_type"]).to eq("PEOption")
   end
 end
